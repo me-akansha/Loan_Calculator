@@ -9,15 +9,15 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-st.set_page_config(page_title="Interactive Loan Calculator", page_icon="💸", layout="wide")
+st.set_page_config(page_title="Interactive Loan Calculator", layout="wide")
 
 with st.sidebar:
     st.title("💸 Loan Calculator")
-    st.caption("Play with inputs and instantly see graphs, tables, and summaries.")
+    st.caption("Explore your data in real-time with dynamic visualizations, interactive filters, and insightful analytics.")
 
     # Borrower details
     st.subheader("Borrower")
-    name = st.text_input("Name", value="Alex Doe", help="For personalization in the report.")
+    name = st.text_input("Name", value="Rahul", help="For personalization in the report.")
     age = st.number_input("Age", min_value=0, max_value=120, value=30)
     region = st.text_input("Country/Region (optional)", value="")
 
@@ -70,9 +70,7 @@ with st.sidebar:
 
     show_table = st.checkbox("Show full amortization table", value=True)
 
-# -----------------------------
-# Helper functions
-# -----------------------------
+
 def periodic_rate_from_apr(apr: float, comp_per_year: int, pay_per_year: int) -> float:
     """Convert APR with compounding 'comp_per_year' to an effective per-payment rate"""
     ear = (1 + apr/comp_per_year) ** comp_per_year - 1  # effective annual rate
@@ -98,7 +96,7 @@ def build_schedule(principal: float,
                    roll_fees: bool = False,
                    fees: float = 0.0) -> pd.DataFrame:
     """Return amortization schedule DataFrame."""
-    # Optionally roll fees into principal
+  
     pv = principal + (fees if roll_fees else 0.0)
 
     nper = years * pay_per_year
@@ -342,7 +340,7 @@ summary_df = pd.DataFrame({
 st.dataframe(summary_df, use_container_width=True, hide_index=True)
 
 if show_table:
-    st.subheader("📅 Full Amortization Schedule")
+    st.subheader(" Full Amortization Schedule")
     st.dataframe(schedule_df, use_container_width=True)
 
 # -----------------------------
